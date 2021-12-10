@@ -1,0 +1,27 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = false
+max_line_length = 120
+tab_width = 2
+
+[*.scss]
+indent_size = 2
+
+[{*.ats,*.ts}]
+indent_size = 2
+tab_width = 2
+ij_typescript_use_double_quotes = false
+ij_typescript_enforce_trailing_comma = remove
+
+
+[{*.bash,*.sh,*.zsh}]
+indent_size = 2
+tab_width = 2
+
+[{*.yaml,*.yml}]
+indent_size = 2
