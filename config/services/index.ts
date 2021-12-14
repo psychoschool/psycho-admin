@@ -3,19 +3,19 @@ interface ServiceConfig {
   pathPrefix?: string
 }
 
-export const JSON_API: Readonly<'json-api'> = 'json-api'
+export const PSYCHO_API: Readonly<'psycho-api'> = 'psycho-api'
 
 const prod: Record<string, ServiceConfig> = {
-  [JSON_API]: {
-    host: 'https://jsonplaceholder.typicode.com',
-    pathPrefix: ''
+  [PSYCHO_API]: {
+    host: 'https://api.psychoschool.ru',
+    pathPrefix: '/api/v1'
   }
 }
 
 const stage: Record<string, ServiceConfig> = {
-  [JSON_API]: {
-    host: 'https://jsonplaceholder.typicode.com',
-    pathPrefix: ''
+  [PSYCHO_API]: {
+    host: 'https://api-stage.psychoschool.ru',
+    pathPrefix: '/api/v1'
   }
 }
 

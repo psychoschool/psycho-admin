@@ -1,3 +1,5 @@
 import { RootState } from 'store/index'
 
-export const selectCurrentUser = (state: RootState) => state.user.user
+export const selectUsers = (state: RootState) => state.users
+
+export const selectCurrentUser = (state: RootState) => state.user.data

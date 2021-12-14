@@ -1,5 +1,5 @@
 import { UserResponse } from 'resources/types'
 
-export type User = {
-  user: Camelize<UserResponse> | null
-}
+type UserId = string
+export type User = Camelize<UserResponse>
+export type UsersCollection = Collection<UserId, User>

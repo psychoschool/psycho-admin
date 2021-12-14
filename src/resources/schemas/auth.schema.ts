@@ -1,6 +1,6 @@
 import camelize from 'camelize'
-import { UserResponse } from 'resources/types'
+import { SigningResponse } from 'resources/types'
 
-export const normalizeUser = (response: UserResponse): Camelize<UserResponse> => {
+export const normalizeSignIn = (response: SigningResponse): Camelize<SigningResponse> => {
   return camelize(response)
 }
