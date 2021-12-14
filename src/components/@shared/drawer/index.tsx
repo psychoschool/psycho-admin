@@ -15,12 +15,15 @@ import { IconButton, ListItemIcon, useTheme } from '@mui/material'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import { ColorModeContext } from 'components/@shared/app'
+import { useAppSelector } from 'utils/store.util'
+import { selectAuth } from 'entities/auth/auth.selector'
 
 const drawerWidth = 240
 
 export const Drawer = () => {
   const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
+  const { authorized } = useAppSelector(selectAuth)
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -36,8 +39,10 @@ export const Drawer = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
+
       <MuiDrawer
-        variant='permanent'
+        open={authorized}
+        variant={authorized ? 'persistent' : undefined}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -62,6 +67,7 @@ export const Drawer = () => {
           </List>
         </Box>
       </MuiDrawer>
+
       <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <Outlet />

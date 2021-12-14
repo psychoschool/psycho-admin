@@ -2,17 +2,20 @@ import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { Route, Routes } from 'react-router'
 import _throttle from 'lodash.throttle'
 import loadable from '@loadable/component'
+import { useNavigate } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
 
-import { selectAuth } from 'entities/auth/auth.selector'
-import { useUserActions } from 'entities/user/user.slice'
 import { selectCurrentUser } from 'entities/user/user.selector'
 import { useAppDispatch, useAppSelector } from 'utils/store.util'
 import { useScreenActions } from 'entities/ui/ui.actions'
 import { Drawer } from 'components/@shared/drawer'
+import { Login } from 'components/auth/login'
 import './styles.scss'
+import { useUserActions } from 'entities/user/user.slice'
+import { selectAuth } from 'entities/auth/auth.selector'
 
 const HomePage = loadable(() => import('pages/home'))
+const AuthPage = loadable(() => import('pages/auth'))
 const CoursesPage = loadable(() => import('pages/courses'))
 const NotFoundPage = loadable(() => import('pages/not-found'))
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
@@ -23,7 +26,7 @@ export const App = () => {
   const { getCurrentUser } = useUserActions(dispatch)
   const { authorized } = useAppSelector(selectAuth)
   const user = useAppSelector(selectCurrentUser)
-
+  const navigate = useNavigate()
   const [mode, setMode] = useState<'light' | 'dark'>('light')
 
   const colorMode = useMemo(
@@ -43,6 +46,10 @@ export const App = () => {
   }, [changeScreen])
 
   useEffect(() => {
+    if (!user) navigate('/auth')
+  }, [navigate, user])
+
+  useEffect(() => {
     if (!user) getCurrentUser()
   }, [user, authorized, getCurrentUser])
 
@@ -53,6 +60,10 @@ export const App = () => {
           <Route path='/' element={<Drawer />}>
             <Route index element={<HomePage />} />
             <Route path='courses' element={<CoursesPage />} />
+
+            <Route element={<AuthPage />}>
+              <Route path='auth' element={<Login />} />
+            </Route>
 
             <Route path='*' element={<NotFoundPage />} />
           </Route>
