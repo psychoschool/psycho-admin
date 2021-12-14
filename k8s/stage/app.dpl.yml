@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psycho-admin-stage-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: psycho-admin-stage
+  template:
+      metadata:
+        labels:
+          app: psycho-admin-stage
+      spec:
+          containers:
+            - name: psycho-admin-stage
+              image: denchiklut/psycho-admin-stage
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: psycho-admin-stage-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: psycho-admin-stage
+  ports:
+      - port: 5000
+        targetPort: 5000
