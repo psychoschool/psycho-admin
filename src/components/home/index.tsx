@@ -14,7 +14,11 @@ export const Home = () => {
     getUsers()
   }, [getUsers])
 
-  const items = Object.values(users).map(user => ({ ...user, avatar: `${user.firstName} .` }))
+  const items = Object.values(users).map(user => ({
+    ...user,
+    avatar: user.firstName,
+    role: 'Student'
+  }))
 
   return (
     <Box>

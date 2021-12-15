@@ -1,11 +1,9 @@
-import * as React from 'react'
+import React, { FC } from 'react'
+import { Avatar, Chip, Link } from '@mui/material'
 import { DataGrid, GridColumns, GridRowsProp, GridToolbar, GridRenderCellParams, ruRU } from '@mui/x-data-grid'
-import { Avatar, Link } from '@mui/material'
-import { CustomNoRowsOverlay } from 'components/home/users-grid/empty-state'
-import { CustomLoadingOverlay } from 'components/home/users-grid/loader'
-import { CustomPagination } from 'components/home/users-grid/pagination'
-import { stringAvatar } from 'components/home/users-grid/utils/color.util'
-import { FC } from 'react'
+import { CustomNoRowsOverlay, CustomLoadingOverlay, CustomPagination } from './components'
+import { stringAvatar } from './utils/color.util'
+import FaceIcon from '@mui/icons-material/Face'
 
 const columns: GridColumns = [
   {
@@ -25,14 +23,16 @@ const columns: GridColumns = [
     width: 200,
     editable: true,
     renderCell: (params: GridRenderCellParams<string>) => <Link>{params.value}</Link>
+  },
+  {
+    field: 'role',
+    headerName: 'Роль',
+    type: 'singleSelect',
+    valueOptions: ['Admin', 'Tutor', 'Student'],
+    renderCell: (params: GridRenderCellParams<string>) => <Chip label={params.value} icon={<FaceIcon />} />,
+    width: 200,
+    editable: true
   }
-  // {
-  //   field: 'lastLogin',
-  //   headerName: 'Last Login',
-  //   type: 'dateTime',
-  //   width: 220,
-  //   editable: true
-  // }
 ]
 
 interface Props {
