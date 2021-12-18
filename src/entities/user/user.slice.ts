@@ -14,11 +14,22 @@ export const getCurrentUser = createAsyncThunk('auth/checkAuth', () => {
   return userResource.getCurrentUser({}, {})
 })
 
+export const getUserById = createAsyncThunk('auth/getUserById', (id: string) => {
+  return userResource.getUserById({}, id)
+})
+
+export const updateUserById = createAsyncThunk('auth/updateUserById', (params: Partial<User>) => {
+  return userResource.updateUserById({}, params)
+})
+
 /*--------------------------------------------------
   dispatch actions
   -------------------------------------------------- */
 export const useUserActions = (dispatch: Dispatch) => {
-  return useMemo(() => bindActionCreators({ getUsers, getCurrentUser }, dispatch), [dispatch])
+  return useMemo(
+    () => bindActionCreators({ getUsers, getCurrentUser, getUserById, updateUserById }, dispatch),
+    [dispatch]
+  )
 }
 
 /*--------------------------------------------------
@@ -30,8 +41,18 @@ export const usersCollectionReducer = createReducer<UsersCollection>({}, builder
   })
 })
 
-export const userMetaReducer = createReducer<{ data: User | null }>({ data: null }, builder => {
+export const currentUserReducer = createReducer<{ data: User | null }>({ data: null }, builder => {
   builder.addCase(getCurrentUser.fulfilled, (state, action) => {
     return { data: action.payload }
   })
+})
+
+export const userMetaReducer = createReducer<{ data: User | null }>({ data: null }, builder => {
+  builder
+    .addCase(getUserById.fulfilled, (state, action) => {
+      return { data: action.payload }
+    })
+    .addCase(updateUserById.fulfilled, (state, action) => {
+      return { data: action.payload }
+    })
 })

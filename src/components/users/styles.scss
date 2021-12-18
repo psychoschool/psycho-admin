@@ -7,9 +7,4 @@
   justify-content: space-evenly;
   justify-items: start;
   gap: 20px;
-
-  @media #{$mobile} {
-    grid-template-columns: auto 1fr;
-    grid-auto-flow: dense;
-  }
 }

@@ -9,8 +9,13 @@ import authReducer from 'entities/auth/auth.reducer'
 export const createRootReducer = (routerReducer: Reducer<RouterState, AnyAction>) =>
   combineReducers({
     router: routerReducer,
-    users: userReducer.collections.users,
-    user: userReducer.meta.user,
+    collections: combineReducers({
+      users: userReducer.collections.users
+    }),
+    meta: combineReducers({
+      user: userReducer.meta.user
+    }),
+    user: userReducer.current.user,
     auth: authReducer,
     [exampleApi.reducerPath]: exampleApi.reducer,
     ui: uiReducer
