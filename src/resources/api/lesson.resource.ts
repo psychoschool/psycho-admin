@@ -13,6 +13,16 @@ export const getUserLessons = resource((ctx, id: string) => ({
   onError: error => error
 }))
 
+export const removeLesson = resource((ctx, lessonId: string) => ({
+  ctx,
+  name: 'removeLesson',
+  method: 'DELETE',
+  serviceName: PSYCHO_API,
+  url: `/lessons/${lessonId}`,
+  onSuccess: (response: { id: string }) => response,
+  onError: error => error
+}))
+
 export const addLesson = resource((ctx, params: AddLessonParam) => ({
   ctx,
   name: 'getCourses',

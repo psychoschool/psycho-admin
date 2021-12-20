@@ -7,7 +7,7 @@ import { AddLessonParam } from 'resources/types'
 /*--------------------------------------------------
   actions
   -------------------------------------------------- */
-export const getUserLesson = createAsyncThunk('lessons/fetchAllCourses', (id: string) => {
+export const getUserLesson = createAsyncThunk('lessons/getUserLessons', (id: string) => {
   return lessonResource.getUserLessons({}, id)
 })
 
@@ -15,18 +15,26 @@ export const addLesson = createAsyncThunk('lessons/addLesson', (params: AddLesso
   return lessonResource.addLesson({}, params)
 })
 
+export const removeLesson = createAsyncThunk('lessons/addLesson', (id: string) => {
+  return lessonResource.removeLesson({}, id)
+})
+
 /*--------------------------------------------------
   dispatch actions
   -------------------------------------------------- */
 export const useLessonActions = (dispatch: Dispatch) => {
-  return useMemo(() => bindActionCreators({ getUserLesson, addLesson }, dispatch), [dispatch])
+  return useMemo(() => bindActionCreators({ getUserLesson, addLesson, removeLesson }, dispatch), [dispatch])
 }
 
 /*--------------------------------------------------
   reducers
   -------------------------------------------------- */
 export const lessonsCollectionReducer = createReducer<LessonsCollection>({}, builder => {
-  builder.addCase(getUserLesson.fulfilled, (state, action) => {
-    return action.payload
-  })
+  builder
+    .addCase(getUserLesson.fulfilled, (state, action) => {
+      return action.payload
+    })
+    .addCase(removeLesson.fulfilled, (state, action) => {
+      delete state[action.payload.id]
+    })
 })

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'utils/store.util'
 import { stringAvatar } from 'components/users/utils/color.util'
 import { useUserActions } from 'entities/user/user.slice'
 import { selectUserMeta } from 'entities/user/user.selector'
-import { RolesSelect } from './roles-select'
+import { RolesSelect } from './components/roles-select'
 import { CoursesList } from './components/courses-list'
 import css from './styles.scss'
 
@@ -47,7 +47,7 @@ export const UserProfile = () => {
         </div>
       </Paper>
 
-      <CoursesList id={id} />
+      <CoursesList userId={id} />
     </Box>
   )
 }
