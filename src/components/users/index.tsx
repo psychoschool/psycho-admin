@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Avatar, Box, Button, Chip, Link, Paper, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, Button, Chip, Link, Paper, Typography } from '@mui/material'
 import FaceIcon from '@mui/icons-material/Face'
 import { useAppDispatch, useAppSelector } from 'utils/store.util'
 import { useUserActions } from 'entities/user/user.slice'
@@ -12,8 +12,6 @@ export const Users = () => {
   const dispatch = useAppDispatch()
   const { getUsers } = useUserActions(dispatch)
   const users = useAppSelector(selectUsers)
-  const theme = useTheme()
-  const background = theme.palette.mode === 'light' ? theme.palette.action.hover : ''
 
   useEffect(() => {
     getUsers()
@@ -27,7 +25,7 @@ export const Users = () => {
   return (
     <Box>
       {items.map(user => (
-        <Paper key={user.id} sx={{ p: 1, background }}>
+        <Paper key={user.id} sx={{ p: 1 }}>
           <div className={css.raw}>
             <Avatar {...stringAvatar(user.firstName)} />
             <Typography variant='body2'>{user.firstName}</Typography>

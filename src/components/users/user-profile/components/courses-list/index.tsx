@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
-import { Button, Paper, Stack, Typography, useTheme } from '@mui/material'
+import React, { FC, useEffect, useState } from 'react'
+import { Avatar, Button, Chip, IconButton, Paper, Typography } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import { useAppDispatch, useAppSelector } from 'utils/store.util'
+import { selectLessons } from 'entities/lessons/lessons.selector'
+import { useLessonActions } from 'entities/lessons/lessons.slice'
 import { CoursesDialog } from '../courses-dialog'
 import css from './styles.scss'
 
-export const CoursesList = () => {
-  const theme = useTheme()
+interface Props {
+  id: string
+}
+export const CoursesList: FC<Props> = ({ id }) => {
+  const dispatch = useAppDispatch()
+  const lessons = useAppSelector(selectLessons)
+  const { getUserLesson } = useLessonActions(dispatch)
   const [open, setOpen] = useState(false)
-  const background = theme.palette.mode === 'light' ? theme.palette.action.hover : ''
+
+  useEffect(() => {
+    getUserLesson(id)
+  }, [getUserLesson, id])
 
   const handleOpen = () => setOpen(true)
 
@@ -20,13 +33,29 @@ export const CoursesList = () => {
           Add
         </Button>
       </div>
-      <Paper sx={{ p: 2, background }}>
-        <Stack direction='row'>
-          <Typography>Course</Typography>
-        </Stack>
-      </Paper>
 
-      <CoursesDialog open={open} handleClose={handleClose} />
+      {Object.entries(lessons).map(([id, lesson], index) => (
+        <Paper key={id} sx={{ p: 1 }}>
+          <div className={css.row}>
+            <Avatar>{index}</Avatar>
+            <Typography>{lesson.course.title}</Typography>
+            <Chip
+              avatar={<Avatar>{`${lesson.course.author.firstName[0]}`}</Avatar>}
+              label={lesson.course.author.firstName}
+            />
+            <Chip label={lesson.course.paidPlans[lesson.paidPlan].name} />
+            <div />
+            <IconButton aria-label='delete'>
+              <EditIcon />
+            </IconButton>
+            <IconButton aria-label='delete'>
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        </Paper>
+      ))}
+
+      <CoursesDialog open={open} handleClose={handleClose} userId={id} />
     </>
   )
 }
