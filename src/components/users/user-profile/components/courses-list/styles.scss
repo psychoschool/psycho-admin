@@ -6,3 +6,11 @@
   justify-content: space-between;
   margin: 42px 0 25px;
 }
+
+.row {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 40px repeat(4, 1fr) 40px 40px;
+  align-items: center;
+  justify-items: start;
+}

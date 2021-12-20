@@ -5,6 +5,7 @@ import uiReducer from 'entities/ui/ui.reducer'
 import { exampleApi } from 'entities/example/example.api'
 import userReducer from 'entities/user/user.reducer'
 import courseReducer from 'entities/courses/courses.reducer'
+import lessonsReducer from 'entities/lessons/lessons.reducer'
 import authReducer from 'entities/auth/auth.reducer'
 
 export const createRootReducer = (routerReducer: Reducer<RouterState, AnyAction>) =>
@@ -12,7 +13,8 @@ export const createRootReducer = (routerReducer: Reducer<RouterState, AnyAction>
     router: routerReducer,
     collections: combineReducers({
       users: userReducer.collections.users,
-      courses: courseReducer.collections.courses
+      courses: courseReducer.collections.courses,
+      lessons: lessonsReducer.collections.lessons
     }),
     meta: combineReducers({
       user: userReducer.meta.user

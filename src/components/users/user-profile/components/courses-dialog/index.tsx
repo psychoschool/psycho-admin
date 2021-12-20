@@ -27,9 +27,14 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose }) => {
     handleClose()
   }
 
+  const onSubmit = () => {
+    console.log(selected)
+    // handleClose()
+  }
+
   return (
     <Dialog fullScreen open={open} onClose={onCLose} TransitionComponent={Transition}>
-      <Header onClose={onCLose} />
+      <Header onClose={onCLose} onSubmit={onSubmit} />
 
       <CoursesList courses={courses} selected={selected} removeSelect={removeSelect} handleSelect={handleSelect} />
     </Dialog>

@@ -4,9 +4,10 @@ import CloseIcon from '@mui/icons-material/Close'
 
 interface Props {
   onClose: () => void
+  onSubmit: () => void
 }
 
-export const Header: FC<Props> = ({ onClose }) => {
+export const Header: FC<Props> = ({ onClose, onSubmit }) => {
   return (
     <AppBar sx={{ position: 'relative' }}>
       <Toolbar>
@@ -16,7 +17,7 @@ export const Header: FC<Props> = ({ onClose }) => {
         <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
           Курсы
         </Typography>
-        <Button autoFocus color='inherit' onClick={onClose}>
+        <Button autoFocus color='inherit' onClick={onSubmit}>
           добавить
         </Button>
       </Toolbar>

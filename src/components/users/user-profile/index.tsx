@@ -26,7 +26,7 @@ export const UserProfile = () => {
     updateUserById({ ...user, role })
   }
 
-  if (!user) return null
+  if (!user || !id) return null
 
   return (
     <Box>
@@ -49,7 +49,7 @@ export const UserProfile = () => {
         </div>
       </Paper>
 
-      <CoursesList />
+      <CoursesList id={id} />
     </Box>
   )
 }
