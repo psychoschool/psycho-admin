@@ -1,18 +1,26 @@
-import React, { forwardRef } from 'react'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import ListItemText from '@mui/material/ListItemText'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
+import React, { FC, forwardRef, useEffect, useState } from 'react'
+import {
+  Button,
+  Dialog,
+  ListItemText,
+  ListItem,
+  List,
+  Divider,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Slide,
+  Stack,
+  ListItemIcon,
+  Checkbox,
+  Chip
+} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import Slide from '@mui/material/Slide'
 import { TransitionProps } from '@mui/material/transitions'
-import { FC } from 'react'
+import { useAppDispatch, useAppSelector } from 'utils/store.util'
+import { useCourseActions } from 'entities/courses/courses.slice'
+import { selectCourses } from 'entities/courses/courses.selector'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -27,30 +35,89 @@ interface Props {
   open: boolean
   handleClose: () => void
 }
+type SelectedCollection = Collection<string, string>
 export const CoursesDialog: FC<Props> = ({ open, handleClose }) => {
+  const dispatch = useAppDispatch()
+  const { getCourses } = useCourseActions(dispatch)
+  const courses = useAppSelector(selectCourses)
+  const [selected, setSelected] = useState<SelectedCollection>({})
+
+  const onCLose = () => {
+    setSelected({})
+    handleClose()
+  }
+
+  useEffect(() => {
+    if (open) getCourses()
+  }, [getCourses, open])
+
+  const handleSelect = (id: string, planId: string) => () => {
+    if (selected[id] === planId) {
+      setSelected(prev => {
+        delete prev[id]
+        return { ...prev }
+      })
+    } else {
+      setSelected(prev => ({ ...prev, [id]: planId }))
+    }
+  }
+
+  const removeSelect = (id: string) => () => {
+    if (id in selected) {
+      setSelected(prev => {
+        delete prev[id]
+        return { ...prev }
+      })
+    }
+  }
+
+  const isSelected = (id: string) => id in selected
+
   return (
-    <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+    <Dialog fullScreen open={open} onClose={onCLose} TransitionComponent={Transition}>
       <AppBar sx={{ position: 'relative' }}>
         <Toolbar>
-          <IconButton edge='start' color='inherit' onClick={handleClose} aria-label='close'>
+          <IconButton edge='start' color='inherit' onClick={onCLose} aria-label='close'>
             <CloseIcon />
           </IconButton>
           <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
             Курсы
           </Typography>
-          <Button autoFocus color='inherit' onClick={handleClose}>
+          <Button autoFocus color='inherit' onClick={onCLose}>
             добавить
           </Button>
         </Toolbar>
       </AppBar>
       <List>
-        <ListItem button>
-          <ListItemText primary='Phone ringtone' secondary='Titania' />
-        </ListItem>
-        <Divider />
-        <ListItem button>
-          <ListItemText primary='Default notification ringtone' secondary='Tethys' />
-        </ListItem>
+        {Object.entries(courses).map(([id, course]) => (
+          <React.Fragment key={id}>
+            <ListItem>
+              <ListItemIcon>
+                <Checkbox
+                  onClick={removeSelect(id)}
+                  checked={isSelected(id)}
+                  edge='start'
+                  tabIndex={-1}
+                  disableRipple
+                />
+              </ListItemIcon>
+              <ListItemText primary={course.title} secondary={`Author: ${course.author.firstName}`} />
+
+              <Stack direction='row' spacing={1}>
+                {course.paidPlans.map(plan => (
+                  <Chip
+                    key={plan.id}
+                    variant={selected?.[id] === plan.id ? 'filled' : 'outlined'}
+                    color={selected?.[id] === plan.id ? 'primary' : 'default'}
+                    label={plan.name}
+                    onClick={handleSelect(id, plan.id)}
+                  />
+                ))}
+              </Stack>
+            </ListItem>
+            <Divider />
+          </React.Fragment>
+        ))}
       </List>
     </Dialog>
   )
