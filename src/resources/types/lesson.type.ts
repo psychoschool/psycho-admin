@@ -8,3 +8,10 @@ export type LessonResponse = {
   completedLectures: Array<string>
   paidPlan: string
 }
+
+export interface AddLessonParam {
+  userId: string
+  courseId: string
+  paidPlan: string
+  onSuccess: () => void
+}

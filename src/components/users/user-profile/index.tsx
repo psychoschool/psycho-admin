@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Avatar, Box, Button, Divider, Paper, Stack, TextField, useTheme } from '@mui/material'
+import { Avatar, Box, Button, Divider, Paper, Stack, TextField } from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'utils/store.util'
 import { stringAvatar } from 'components/users/utils/color.util'
 import { useUserActions } from 'entities/user/user.slice'
@@ -13,10 +13,8 @@ export const UserProfile = () => {
   const { id } = useParams()
   const dispatch = useAppDispatch()
   const { getUserById, updateUserById } = useUserActions(dispatch)
-  const theme = useTheme()
   const user = useAppSelector(selectUserMeta)
   const [role, setRole] = useState(user?.role)
-  const background = theme.palette.mode === 'light' ? theme.palette.action.hover : ''
 
   useEffect(() => {
     if (id) getUserById(id)
@@ -30,7 +28,7 @@ export const UserProfile = () => {
 
   return (
     <Box>
-      <Paper sx={{ p: 2, background }}>
+      <Paper sx={{ p: 2 }}>
         <div className={css.wrapper}>
           <Avatar style={{ width: 120, height: 120, fontSize: 72 }} {...stringAvatar(user.firstName)} />
 

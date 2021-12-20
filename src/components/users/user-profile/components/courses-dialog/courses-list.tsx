@@ -13,22 +13,28 @@ export const CoursesList: FC<Props> = ({ courses, selected, removeSelect, handle
 
   return (
     <List>
-      {Object.entries(courses).map(([id, course]) => (
-        <React.Fragment key={id}>
+      {Object.entries(courses).map(([coursesId, course]) => (
+        <React.Fragment key={coursesId}>
           <ListItem>
             <ListItemIcon>
-              <Checkbox onClick={removeSelect(id)} checked={isSelected(id)} edge='start' tabIndex={-1} disableRipple />
+              <Checkbox
+                onClick={removeSelect(coursesId)}
+                checked={isSelected(coursesId)}
+                edge='start'
+                tabIndex={-1}
+                disableRipple
+              />
             </ListItemIcon>
             <ListItemText primary={course.title} secondary={`Author: ${course.author.firstName}`} />
 
             <Stack direction='row' spacing={1}>
-              {course.paidPlans.map(plan => (
+              {Object.entries(course.paidPlans).map(([planId, plan]) => (
                 <Chip
-                  key={plan.id}
-                  variant={selected?.[id] === plan.id ? 'filled' : 'outlined'}
-                  color={selected?.[id] === plan.id ? 'primary' : 'default'}
+                  key={planId}
                   label={plan.name}
-                  onClick={handleSelect(id, plan.id)}
+                  onClick={handleSelect(coursesId, planId)}
+                  variant={selected?.[coursesId] === plan.id ? 'filled' : 'outlined'}
+                  color={selected?.[coursesId] === plan.id ? 'primary' : 'default'}
                 />
               ))}
             </Stack>

@@ -4,21 +4,21 @@ type SelectedCollection = Collection<string, string>
 export const useSelected = () => {
   const [selected, setSelected] = useState<SelectedCollection>({})
 
-  const handleSelect = (id: string, planId: string) => () => {
-    if (selected[id] === planId) {
+  const handleSelect = (courseId: string, planId: string) => () => {
+    if (selected[courseId] === planId) {
       setSelected(prev => {
-        delete prev[id]
+        delete prev[courseId]
         return { ...prev }
       })
     } else {
-      setSelected(prev => ({ ...prev, [id]: planId }))
+      setSelected(prev => ({ ...prev, [courseId]: planId }))
     }
   }
 
-  const removeSelect = (id: string) => () => {
-    if (id in selected) {
+  const removeSelect = (courseId: string) => () => {
+    if (courseId in selected) {
       setSelected(prev => {
-        delete prev[id]
+        delete prev[courseId]
         return { ...prev }
       })
     }

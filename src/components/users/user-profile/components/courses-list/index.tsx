@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Avatar, Button, Chip, IconButton, Paper, Stack, Typography, useTheme } from '@mui/material'
+import { Avatar, Button, Chip, IconButton, Paper, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useAppDispatch, useAppSelector } from 'utils/store.util'
@@ -12,16 +12,14 @@ interface Props {
   id: string
 }
 export const CoursesList: FC<Props> = ({ id }) => {
-  const theme = useTheme()
   const dispatch = useAppDispatch()
   const lessons = useAppSelector(selectLessons)
-  const { getUserCourses } = useLessonActions(dispatch)
+  const { getUserLesson } = useLessonActions(dispatch)
   const [open, setOpen] = useState(false)
-  const background = theme.palette.mode === 'light' ? theme.palette.action.hover : ''
 
   useEffect(() => {
-    getUserCourses(id)
-  }, [getUserCourses, id])
+    getUserLesson(id)
+  }, [getUserLesson, id])
 
   const handleOpen = () => setOpen(true)
 
@@ -37,7 +35,7 @@ export const CoursesList: FC<Props> = ({ id }) => {
       </div>
 
       {Object.entries(lessons).map(([id, lesson], index) => (
-        <Paper key={id} sx={{ p: 1, background }}>
+        <Paper key={id} sx={{ p: 1 }}>
           <div className={css.row}>
             <Avatar>{index}</Avatar>
             <Typography>{lesson.course.title}</Typography>
@@ -45,10 +43,8 @@ export const CoursesList: FC<Props> = ({ id }) => {
               avatar={<Avatar>{`${lesson.course.author.firstName[0]}`}</Avatar>}
               label={lesson.course.author.firstName}
             />
-            <Chip label={lesson.paidPlan} />
-
+            <Chip label={lesson.course.paidPlans[lesson.paidPlan].name} />
             <div />
-
             <IconButton aria-label='delete'>
               <EditIcon />
             </IconButton>
@@ -59,7 +55,7 @@ export const CoursesList: FC<Props> = ({ id }) => {
         </Paper>
       ))}
 
-      <CoursesDialog open={open} handleClose={handleClose} />
+      <CoursesDialog open={open} handleClose={handleClose} userId={id} />
     </>
   )
 }
