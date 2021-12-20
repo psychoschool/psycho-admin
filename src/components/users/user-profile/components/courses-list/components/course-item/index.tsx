@@ -18,7 +18,7 @@ export const CourseItem: FC<Props> = ({ lesson, index }) => {
 
   return (
     <>
-      <Paper sx={{ p: 1 }}>
+      <Paper sx={{ p: 1, mb: 1 }}>
         <div className={css.row}>
           <Avatar>{++index}</Avatar>
           <Typography>{lesson.course.title}</Typography>

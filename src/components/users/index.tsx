@@ -25,7 +25,7 @@ export const Users = () => {
   return (
     <Box>
       {items.map(user => (
-        <Paper key={user.id} sx={{ p: 1 }}>
+        <Paper key={user.id} sx={{ p: 1, mb: 1 }}>
           <div className={css.raw}>
             <Avatar {...stringAvatar(user.firstName)} />
             <Typography variant='body2'>{user.firstName}</Typography>
