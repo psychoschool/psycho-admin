@@ -1,0 +1,10 @@
+@import 'variables';
+
+.raw {
+  display: grid;
+  grid-template-columns: 40px repeat(5, 1fr);
+  align-items: center;
+  justify-content: space-evenly;
+  justify-items: start;
+  gap: 20px;
+}
