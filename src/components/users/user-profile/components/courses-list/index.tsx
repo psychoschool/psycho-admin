@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Button, Typography } from '@mui/material'
-
+import { Button, Typography, useTheme } from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'utils/store.util'
 import { selectLessons } from 'entities/lessons/lessons.selector'
 import { useLessonActions } from 'entities/lessons/lessons.slice'
 import { CourseItem } from './components/course-item'
 import { CoursesDialog } from '../courses-dialog'
+import { EmptyState } from './empty-state'
 import css from './styles.scss'
 
 interface Props {
@@ -16,6 +16,7 @@ export const CoursesList: FC<Props> = ({ userId }) => {
   const lessons = useAppSelector(selectLessons)
   const { getUserLesson } = useLessonActions(dispatch)
   const [open, setOpen] = useState(false)
+  const theme = useTheme()
 
   useEffect(() => {
     getUserLesson(userId)
@@ -33,6 +34,8 @@ export const CoursesList: FC<Props> = ({ userId }) => {
           Add
         </Button>
       </div>
+
+      {!Object.entries(lessons).length && <EmptyState theme={theme} />}
 
       {Object.entries(lessons).map(([id, lesson], index) => (
         <CourseItem key={id} lesson={lesson} index={index} />
