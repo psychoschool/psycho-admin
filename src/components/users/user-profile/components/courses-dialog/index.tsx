@@ -39,6 +39,7 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
         userId,
         courseId,
         paidPlan,
+        url: courses[courseId].url,
         onSuccess: () => {
           getUserLessons(userId)
         }

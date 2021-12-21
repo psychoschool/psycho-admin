@@ -7,6 +7,7 @@ export interface CourseResponse {
   isFree: boolean
   description: string
   author: UserResponse
+  url: string
   sections: Array<{
     title: string
     lectures: Array<Lecture>

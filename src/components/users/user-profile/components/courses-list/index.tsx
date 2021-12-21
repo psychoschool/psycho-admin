@@ -14,13 +14,13 @@ interface Props {
 export const CoursesList: FC<Props> = ({ userId }) => {
   const dispatch = useAppDispatch()
   const lessons = useAppSelector(selectLessons)
-  const { getUserLesson } = useLessonActions(dispatch)
+  const { getUserLessons } = useLessonActions(dispatch)
   const [open, setOpen] = useState(false)
   const theme = useTheme()
 
   useEffect(() => {
-    getUserLesson(userId)
-  }, [getUserLesson, userId])
+    getUserLessons(userId)
+  }, [getUserLessons, userId])
 
   const handleOpen = () => setOpen(true)
 
