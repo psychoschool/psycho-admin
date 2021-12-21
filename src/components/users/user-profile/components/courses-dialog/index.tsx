@@ -17,7 +17,7 @@ interface Props {
 export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
   const dispatch = useAppDispatch()
   const { getCourses } = useCourseActions(dispatch)
-  const { addLesson, getUserLesson } = useLessonActions(dispatch)
+  const { addLesson, getUserLessons } = useLessonActions(dispatch)
   const courses = useAppSelector(selectCourses)
   const { selected, removeSelect, handleSelect, resetSelected } = useSelected()
 
@@ -40,7 +40,7 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
         courseId,
         paidPlan,
         onSuccess: () => {
-          getUserLesson(userId)
+          getUserLessons(userId)
         }
       })
     }
