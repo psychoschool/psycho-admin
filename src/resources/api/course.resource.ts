@@ -9,6 +9,6 @@ export const getAllCourses = resource(ctx => ({
   method: 'GET',
   serviceName: PSYCHO_API,
   url: '/courses',
-  onSuccess: (response: Array<CourseResponse>) => normalizeCourses(response),
+  onSuccess: (response: Response<Array<CourseResponse>>) => normalizeCourses(response.data),
   onError: error => error
 }))
