@@ -47,7 +47,7 @@ export const currentUserReducer = createReducer<{ data: User | null }>({ data: n
   })
 })
 
-export const userMetaReducer = createReducer<{ data: User | null }>({ data: null }, builder => {
+export const userReducer = createReducer<{ data: User | null }>({ data: null }, builder => {
   builder
     .addCase(getUserById.fulfilled, (state, action) => {
       return { data: action.payload }
@@ -56,3 +56,16 @@ export const userMetaReducer = createReducer<{ data: User | null }>({ data: null
       return { data: action.payload }
     })
 })
+
+export const userMetaReducer = createReducer<{ status: 'succeeded' | 'pending' | 'failed' }>(
+  { status: 'pending' },
+  builder => {
+    builder
+      .addCase(getUserById.fulfilled, () => ({ status: 'succeeded' }))
+      .addCase(getUserById.pending, () => ({ status: 'pending' }))
+      .addCase(getUserById.rejected, () => ({ status: 'failed' }))
+      .addCase(updateUserById.fulfilled, () => ({ status: 'succeeded' }))
+      .addCase(updateUserById.pending, () => ({ status: 'pending' }))
+      .addCase(updateUserById.rejected, () => ({ status: 'failed' }))
+  }
+)

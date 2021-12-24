@@ -25,3 +25,13 @@ export const coursesCollectionReducer = createReducer<CoursesCollection>({}, bui
     return action.payload
   })
 })
+
+export const coursesMetaReducer = createReducer<{ status: 'succeeded' | 'pending' | 'failed' }>(
+  { status: 'pending' },
+  builder => {
+    builder
+      .addCase(getCourses.fulfilled, () => ({ status: 'succeeded' }))
+      .addCase(getCourses.pending, () => ({ status: 'pending' }))
+      .addCase(getCourses.rejected, () => ({ status: 'failed' }))
+  }
+)

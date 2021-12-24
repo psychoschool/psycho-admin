@@ -1,12 +1,11 @@
-import { userMetaReducer, currentUserReducer, usersCollectionReducer } from './user.slice'
+import { userReducer, currentUserReducer, usersCollectionReducer, userMetaReducer } from './user.slice'
 
 export default {
   collections: {
     users: usersCollectionReducer
   },
-  current: {
-    user: currentUserReducer
-  },
+  currentUser: currentUserReducer,
+  user: userReducer,
   meta: {
     user: userMetaReducer
   }

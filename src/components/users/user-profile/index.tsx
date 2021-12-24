@@ -4,7 +4,7 @@ import { Avatar, Box, Button, Divider, Paper, Stack, TextField } from '@mui/mate
 import { useAppDispatch, useAppSelector } from 'utils/store.util'
 import { stringAvatar } from 'components/users/utils/color.util'
 import { useUserActions } from 'entities/user/user.slice'
-import { selectUserMeta } from 'entities/user/user.selector'
+import { selectUser, selectUserMeta } from 'entities/user/user.selector'
 import { RolesSelect } from './components/roles-select'
 import { CoursesList } from './components/courses-list'
 import css from './styles.scss'
@@ -13,7 +13,8 @@ export const UserProfile = () => {
   const { id } = useParams()
   const dispatch = useAppDispatch()
   const { getUserById, updateUserById } = useUserActions(dispatch)
-  const user = useAppSelector(selectUserMeta)
+  const user = useAppSelector(selectUser)
+  const { status } = useAppSelector(selectUserMeta)
   const [role, setRole] = useState(user?.role)
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const UserProfile = () => {
     updateUserById({ ...user, role })
   }
 
-  if (!user || !id) return null
+  if (!user || !id || status === 'pending') return null
 
   return (
     <Box>

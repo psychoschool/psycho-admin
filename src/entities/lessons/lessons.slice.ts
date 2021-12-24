@@ -38,3 +38,15 @@ export const lessonsCollectionReducer = createReducer<LessonsCollection>({}, bui
       delete state[action.payload.id]
     })
 })
+
+export const lessonsMetaReducer = createReducer<{ status: 'succeeded' | 'pending' | 'failed' }>(
+  {
+    status: 'pending'
+  },
+  builder => {
+    builder
+      .addCase(getUserLessons.fulfilled, () => ({ status: 'succeeded' }))
+      .addCase(getUserLessons.pending, () => ({ status: 'pending' }))
+      .addCase(getUserLessons.rejected, () => ({ status: 'failed' }))
+  }
+)
