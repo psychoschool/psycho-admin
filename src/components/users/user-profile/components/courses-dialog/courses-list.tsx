@@ -4,12 +4,11 @@ import { CoursesCollection } from 'entities/courses/courses.types'
 
 interface Props {
   courses: CoursesCollection
-  selected: Collection<string, string>
-  removeSelect: (id: string) => () => void
-  handleSelect: (id: string, planId: string) => () => void
+  selected: Array<string>
+  handleSelect: (id: string) => () => void
 }
-export const CoursesList: FC<Props> = ({ courses, selected, removeSelect, handleSelect }) => {
-  const isSelected = (id: string) => id in selected
+export const CoursesList: FC<Props> = ({ courses, selected, handleSelect }) => {
+  const isSelected = (id: string) => selected.includes(id)
 
   return (
     <List>
@@ -18,7 +17,7 @@ export const CoursesList: FC<Props> = ({ courses, selected, removeSelect, handle
           <ListItem>
             <ListItemIcon>
               <Checkbox
-                onClick={removeSelect(coursesId)}
+                onClick={handleSelect(coursesId)}
                 checked={isSelected(coursesId)}
                 edge='start'
                 tabIndex={-1}
@@ -28,15 +27,7 @@ export const CoursesList: FC<Props> = ({ courses, selected, removeSelect, handle
             <ListItemText primary={course.title} secondary={`Author: ${course.author.firstName}`} />
 
             <Stack direction='row' spacing={1}>
-              {Object.entries(course.paidPlans).map(([planId, plan]) => (
-                <Chip
-                  key={planId}
-                  label={plan.name}
-                  onClick={handleSelect(coursesId, planId)}
-                  variant={selected?.[coursesId] === plan.id ? 'filled' : 'outlined'}
-                  color={selected?.[coursesId] === plan.id ? 'primary' : 'default'}
-                />
-              ))}
+              <Chip label={course.isFree ? 'free' : course.price.cost} />
             </Stack>
           </ListItem>
           <Divider />

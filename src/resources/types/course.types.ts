@@ -8,11 +8,9 @@ export interface CourseResponse {
   description: string
   author: UserResponse
   url: string
-  sections: Array<{
-    title: string
-    lectures: Array<Lecture>
-  }>
-  paidPlans: Array<{ id: string; name: string; price: number }>
+  sections: Array<{ title: string; lectures: Array<Lecture> }>
+  price: { cost: number; promoCost?: number }
+  skills: Array<string>
 }
 
 export interface Lecture {

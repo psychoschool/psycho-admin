@@ -7,13 +7,14 @@ export type LessonResponse = {
   user: UserResponse
   url: string
   completedLectures: Array<string>
-  paidPlan: string
+  purchasedPrice?: number
+  isFree: boolean
 }
 
 export interface AddLessonParam {
   userId: string
   courseId: string
-  paidPlan: string
+  purchasedPrice?: number
   url: string
   onSuccess: () => void
 }

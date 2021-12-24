@@ -26,7 +26,7 @@ export const CourseItem: FC<Props> = ({ lesson, index }) => {
             avatar={<Avatar>{`${lesson.course.author.firstName[0]}`}</Avatar>}
             label={lesson.course.author.firstName}
           />
-          <Chip label={lesson.course.paidPlans[lesson.paidPlan].name} />
+          <Chip label={lesson.course.isFree ? 'free' : lesson.course.price.cost} />
           <div />
           <IconButton>
             <EditIcon />

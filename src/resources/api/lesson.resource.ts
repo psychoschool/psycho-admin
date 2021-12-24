@@ -9,7 +9,7 @@ export const getUserLessons = resource((ctx, id: string) => ({
   method: 'GET',
   serviceName: PSYCHO_API,
   url: `/lessons/user/${id}`,
-  onSuccess: (response: Response<Array<LessonResponse>>) => normalizeLesson(response.data),
+  onSuccess: (response: Response<Array<LessonResponse>>) => normalizeLesson(response.result),
   onError: error => error
 }))
 
@@ -19,7 +19,7 @@ export const removeLesson = resource((ctx, lessonId: string) => ({
   method: 'DELETE',
   serviceName: PSYCHO_API,
   url: `/lessons/${lessonId}`,
-  onSuccess: (response: { id: string }) => response,
+  onSuccess: (response: Response<{ id: string }>) => response.result,
   onError: error => error
 }))
 
@@ -32,12 +32,12 @@ export const addLesson = resource((ctx, params: AddLessonParam) => ({
   data: {
     course: params.courseId,
     user: params.userId,
-    paidPlan: params.paidPlan,
+    price: params.purchasedPrice,
     url: params.url
   },
   onSuccess: (response: Response<Array<LessonResponse>>) => {
     params.onSuccess()
-    return normalizeLesson(response.data)
+    return normalizeLesson(response.result)
   },
   onError: error => error
 }))

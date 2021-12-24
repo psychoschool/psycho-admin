@@ -15,7 +15,7 @@ export const addLesson = createAsyncThunk('lessons/addLesson', (params: AddLesso
   return lessonResource.addLesson({}, params)
 })
 
-export const removeLesson = createAsyncThunk('lessons/addLesson', (id: string) => {
+export const removeLesson = createAsyncThunk('lessons/removeLesson', (id: string) => {
   return lessonResource.removeLesson({}, id)
 })
 

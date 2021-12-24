@@ -19,7 +19,7 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
   const { getCourses } = useCourseActions(dispatch)
   const { addLesson, getUserLessons } = useLessonActions(dispatch)
   const courses = useAppSelector(selectCourses)
-  const { selected, removeSelect, handleSelect, resetSelected } = useSelected()
+  const { selected, handleSelect, resetSelected } = useSelected()
 
   useEffect(() => {
     if (open) getCourses()
@@ -31,14 +31,12 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
   }
 
   const onSubmit = () => {
-    const courseId = Object.keys(selected)[0]
-    const paidPlan = Object.values(selected)[0]
-
-    if (Object.keys(selected).length) {
+    if (selected.length) {
+      const courseId = selected[0]
       addLesson({
         userId,
         courseId,
-        paidPlan,
+        purchasedPrice: courses[courseId].price.cost,
         url: courses[courseId].url,
         onSuccess: () => {
           getUserLessons(userId)
@@ -53,7 +51,7 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
     <Dialog fullScreen open={open} onClose={onCLose} TransitionComponent={Transition}>
       <Header onClose={onCLose} onSubmit={onSubmit} />
 
-      <CoursesList courses={courses} selected={selected} removeSelect={removeSelect} handleSelect={handleSelect} />
+      <CoursesList courses={courses} selected={selected} handleSelect={handleSelect} />
     </Dialog>
   )
 }

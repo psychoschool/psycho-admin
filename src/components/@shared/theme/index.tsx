@@ -1,5 +1,6 @@
-import React, { createContext, FC, useMemo, useState } from 'react'
+import React, { createContext, FC, useMemo } from 'react'
 import { createTheme, PaletteMode, ThemeProvider as MuiThemeProvider } from '@mui/material'
+import { useLocalStorage } from 'utils/local-storage.util'
 
 const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
@@ -10,16 +11,17 @@ const getDesignTokens = (mode: PaletteMode) => ({
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 export const ThemeProvider: FC = ({ children }) => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light')
+  const [mode, setMode] = useLocalStorage<'light' | 'dark'>('theme', 'light')
+
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'))
+        setMode(mode === 'light' ? 'dark' : 'light')
       }
     }),
-    []
+    [mode, setMode]
   )
 
   return (

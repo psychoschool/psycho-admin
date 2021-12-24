@@ -10,7 +10,7 @@ export const getAllUsers = resource(ctx => ({
   method: 'GET',
   serviceName: PSYCHO_API,
   url: '/users',
-  onSuccess: (response: Response<Array<UserResponse>>) => normalizeUser(response.data),
+  onSuccess: (response: Response<Array<UserResponse>>) => normalizeUser(response.result),
   onError: error => error
 }))
 
@@ -20,7 +20,7 @@ export const getCurrentUser = resource(ctx => ({
   method: 'GET',
   serviceName: PSYCHO_API,
   url: '/me',
-  onSuccess: (response: Response<UserResponse>) => response.data,
+  onSuccess: (response: Response<UserResponse>) => response.result,
   onError: error => error
 }))
 
@@ -30,7 +30,7 @@ export const getUserById = resource((ctx, id: string) => ({
   method: 'GET',
   serviceName: PSYCHO_API,
   url: `/users/${id}`,
-  onSuccess: (response: Response<UserResponse>) => response.data,
+  onSuccess: (response: Response<UserResponse>) => response.result,
   onError: error => error
 }))
 
@@ -41,6 +41,6 @@ export const updateUserById = resource((ctx, params: Partial<User>) => ({
   serviceName: PSYCHO_API,
   url: `/users/${params.id}`,
   data: params,
-  onSuccess: (response: Response<UserResponse>) => response.data,
+  onSuccess: (response: Response<UserResponse>) => response.result,
   onError: error => error
 }))
