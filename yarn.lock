@@ -1100,6 +1100,14 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
+"@babel/types@^7.16.7":
+  version "7.16.7"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.16.7.tgz#4ed19d51f840ed4bd5645be6ce40775fecf03159"
+  integrity sha512-E8HuV7FO9qLpx6OtoGfUQ2cjIYnbFwvZWYBS+87EwtdMvmUPJSwykpovFB+8insbpF0uJcpr8KMUi64XZntZcg==
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.16.7"
+    to-fast-properties "^2.0.0"
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -1470,10 +1478,10 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
-"@mui/icons-material@^5.2.1":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.2.1.tgz#f037aeb7a0491bf855eaebea53de8ee427b3014e"
-  integrity sha512-AFOn0bbaGd1dw8oYE40dv3I+QnfS5xP5HSUiUGsvb1ntP0cM1kW4VqQp7BtL7DbOpEsw1ZTbw67tDqSCH7utNg==
+"@mui/icons-material@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.2.5.tgz#c6575430b565c023232147934c45775630a53f02"
+  integrity sha512-uQiUz+l0xy+2jExyKyU19MkMAR2F7bQFcsQ5hdqAtsB14Jw2zlmIAD55mV6f0NxKCut7Rx6cA3ZpfzlzAfoK8Q==
   dependencies:
     "@babel/runtime" "^7.16.3"
 
