@@ -1,0 +1,17 @@
+@import 'variables';
+
+.actions {
+  display: flex;
+  justify-items: end;
+  justify-content: space-between;
+  margin: 86px 0 20px;
+  align-items: flex-end;
+}
+
+.row {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 40px repeat(4, 1fr) auto auto auto;
+  align-items: center;
+  justify-items: start;
+}

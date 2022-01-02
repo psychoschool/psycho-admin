@@ -16,12 +16,13 @@ export const NavMenu = () => {
 
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          <Link to='/'>
+          <Link to='/users'>
             <ListItem button>
               <ListItemIcon>{<PeopleAltRoundedIcon />}</ListItemIcon>
               <ListItemText primary='Пользователи' />
             </ListItem>
           </Link>
+
           <Link to='/courses'>
             <ListItem button>
               <ListItemIcon>{<VideoRoundedIcon />}</ListItemIcon>
