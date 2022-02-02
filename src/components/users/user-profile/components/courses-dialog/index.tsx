@@ -37,7 +37,7 @@ export const CoursesDialog: FC<Props> = ({ open, handleClose, userId }) => {
         userId,
         courseId,
         purchasedPrice: courses[courseId].price.cost,
-        url: courses[courseId].url,
+        slug: courses[courseId].slug,
         onSuccess: () => {
           getUserLessons(userId)
         }

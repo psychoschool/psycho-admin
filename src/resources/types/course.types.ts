@@ -7,7 +7,7 @@ export interface CourseResponse {
   isFree: boolean
   description: string
   author: UserResponse
-  url: string
+  slug: string
   sections: Array<{ title: string; lectures: Array<Lecture> }>
   price: { cost: number; promoCost?: number }
   skills: Array<string>
@@ -16,6 +16,6 @@ export interface CourseResponse {
 export interface Lecture {
   id: string
   type: 'video'
-  url: string
+  slug: string
   title: string
 }

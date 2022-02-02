@@ -33,7 +33,7 @@ export const addLesson = resource((ctx, params: AddLessonParam) => ({
     course: params.courseId,
     user: params.userId,
     price: params.purchasedPrice,
-    url: params.url
+    slug: params.slug
   },
   onSuccess: (response: Response<Array<LessonResponse>>) => {
     params.onSuccess()
